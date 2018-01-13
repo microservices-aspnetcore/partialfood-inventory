@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package PartialFoods.Services;
+
+service InventoryManagement {
+    rpc GetEffectiveQuantity(GetQuantityRequest) returns (GetQuantityResponse);
+}
+
+message GetQuantityRequest {
+    string SKU = 1;
+}
+
+message GetQuantityResponse {
+    uint32 Quantity = 1;
+}
