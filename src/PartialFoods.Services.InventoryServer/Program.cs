@@ -30,6 +30,7 @@ namespace PartialFoods.Services.InventoryServer
                 .AddDebug();
 
             ILogger logger = loggerFactory.CreateLogger<Program>();
+            var rpcLogger = loggerFactory.CreateLogger<InventoryManagementImpl>();
 
             var port = int.Parse(Configuration["service:port"]);
 
@@ -43,7 +44,8 @@ namespace PartialFoods.Services.InventoryServer
                 { "enable.auto.commit", false },
                 { "bootstrap.servers", brokerList }
             };
-            var context = new InventoryContext(Configuration["postgres:connectionstring"]);
+            //var context = new InventoryContext(Configuration["postgres:connectionstring"]);
+            var context = new InventoryContext();
             var repo = new InventoryRepository(context);
 
             var reservedEventProcessor = new InventoryReservedEventProcessor(repo);
@@ -56,7 +58,7 @@ namespace PartialFoods.Services.InventoryServer
 
             Server server = new Server
             {
-                Services = { InventoryManagement.BindService(new InventoryManagementImpl(repo)) },
+                Services = { InventoryManagement.BindService(new InventoryManagementImpl(repo, rpcLogger)) },
                 Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
             };
             server.Start();

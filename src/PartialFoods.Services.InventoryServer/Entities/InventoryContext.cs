@@ -1,22 +1,17 @@
+using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace PartialFoods.Services.InventoryServer.Entities
 {
     public class InventoryContext : DbContext
     {
-        private string connStr;
-
-        public InventoryContext(string connectionString) : base()
-        {
-            connStr = connectionString;
-        }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductActivity> Activities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connStr);
+            optionsBuilder.UseNpgsql(Program.Configuration.GetConnectionString("inventory"));
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
