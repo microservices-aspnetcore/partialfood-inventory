@@ -22,7 +22,7 @@ namespace PartialFoods.Services.InventoryServer
                 Quantity = (int)evt.Quantity,
                 ActivityID = evt.EventID,
                 CreatedOn = DateTime.UtcNow.Ticks,
-                ActivityType = ActivityType.Reserved
+                ActivityType = PartialFoods.Services.InventoryServer.Entities.ActivityType.Reserved
             };
             var result = repository.PutActivity(activity);
 

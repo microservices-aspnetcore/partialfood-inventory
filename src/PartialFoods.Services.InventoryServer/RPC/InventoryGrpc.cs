@@ -13,15 +13,23 @@ namespace PartialFoods.Services {
   {
     static readonly string __ServiceName = "PartialFoods.Services.InventoryManagement";
 
-    static readonly grpc::Marshaller<global::PartialFoods.Services.GetQuantityRequest> __Marshaller_GetQuantityRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PartialFoods.Services.GetQuantityRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::PartialFoods.Services.GetProductRequest> __Marshaller_GetProductRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PartialFoods.Services.GetProductRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::PartialFoods.Services.GetQuantityResponse> __Marshaller_GetQuantityResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PartialFoods.Services.GetQuantityResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::PartialFoods.Services.ActivityResponse> __Marshaller_ActivityResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::PartialFoods.Services.ActivityResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::PartialFoods.Services.GetQuantityRequest, global::PartialFoods.Services.GetQuantityResponse> __Method_GetEffectiveQuantity = new grpc::Method<global::PartialFoods.Services.GetQuantityRequest, global::PartialFoods.Services.GetQuantityResponse>(
+    static readonly grpc::Method<global::PartialFoods.Services.GetProductRequest, global::PartialFoods.Services.GetQuantityResponse> __Method_GetEffectiveQuantity = new grpc::Method<global::PartialFoods.Services.GetProductRequest, global::PartialFoods.Services.GetQuantityResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "GetEffectiveQuantity",
-        __Marshaller_GetQuantityRequest,
+        __Marshaller_GetProductRequest,
         __Marshaller_GetQuantityResponse);
+
+    static readonly grpc::Method<global::PartialFoods.Services.GetProductRequest, global::PartialFoods.Services.ActivityResponse> __Method_GetActivity = new grpc::Method<global::PartialFoods.Services.GetProductRequest, global::PartialFoods.Services.ActivityResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetActivity",
+        __Marshaller_GetProductRequest,
+        __Marshaller_ActivityResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -32,7 +40,12 @@ namespace PartialFoods.Services {
     /// <summary>Base class for server-side implementations of InventoryManagement</summary>
     public abstract partial class InventoryManagementBase
     {
-      public virtual global::System.Threading.Tasks.Task<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantity(global::PartialFoods.Services.GetQuantityRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantity(global::PartialFoods.Services.GetProductRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::PartialFoods.Services.ActivityResponse> GetActivity(global::PartialFoods.Services.GetProductRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -62,21 +75,37 @@ namespace PartialFoods.Services {
       {
       }
 
-      public virtual global::PartialFoods.Services.GetQuantityResponse GetEffectiveQuantity(global::PartialFoods.Services.GetQuantityRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual global::PartialFoods.Services.GetQuantityResponse GetEffectiveQuantity(global::PartialFoods.Services.GetProductRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return GetEffectiveQuantity(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::PartialFoods.Services.GetQuantityResponse GetEffectiveQuantity(global::PartialFoods.Services.GetQuantityRequest request, grpc::CallOptions options)
+      public virtual global::PartialFoods.Services.GetQuantityResponse GetEffectiveQuantity(global::PartialFoods.Services.GetProductRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_GetEffectiveQuantity, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantityAsync(global::PartialFoods.Services.GetQuantityRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantityAsync(global::PartialFoods.Services.GetProductRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
       {
         return GetEffectiveQuantityAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantityAsync(global::PartialFoods.Services.GetQuantityRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.GetQuantityResponse> GetEffectiveQuantityAsync(global::PartialFoods.Services.GetProductRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_GetEffectiveQuantity, null, options, request);
+      }
+      public virtual global::PartialFoods.Services.ActivityResponse GetActivity(global::PartialFoods.Services.GetProductRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetActivity(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::PartialFoods.Services.ActivityResponse GetActivity(global::PartialFoods.Services.GetProductRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetActivity, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.ActivityResponse> GetActivityAsync(global::PartialFoods.Services.GetProductRequest request, grpc::Metadata headers = null, DateTime? deadline = null, CancellationToken cancellationToken = default(CancellationToken))
+      {
+        return GetActivityAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::PartialFoods.Services.ActivityResponse> GetActivityAsync(global::PartialFoods.Services.GetProductRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetActivity, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override InventoryManagementClient NewInstance(ClientBaseConfiguration configuration)
@@ -90,7 +119,8 @@ namespace PartialFoods.Services {
     public static grpc::ServerServiceDefinition BindService(InventoryManagementBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_GetEffectiveQuantity, serviceImpl.GetEffectiveQuantity).Build();
+          .AddMethod(__Method_GetEffectiveQuantity, serviceImpl.GetEffectiveQuantity)
+          .AddMethod(__Method_GetActivity, serviceImpl.GetActivity).Build();
     }
 
   }

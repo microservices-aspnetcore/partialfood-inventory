@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using PartialFoods.Services;
 using PartialFoods.Services.InventoryServer.Entities;
+using Grpc.Reflection.V1Alpha;
+using Grpc.Reflection;
 
 namespace PartialFoods.Services.InventoryServer
 {
@@ -56,13 +58,17 @@ namespace PartialFoods.Services.InventoryServer
             var releasedConsumer = new KafkaReleasedConsumer(releasedTopic, config, releasedEventProcessor);
             releasedConsumer.Consume();
 
+            var refImpl = new ReflectionServiceImpl(
+                ServerReflection.Descriptor, InventoryManagement.Descriptor);
+            var inventoryManagement = new InventoryManagementImpl(repo, rpcLogger);
             Server server = new Server
             {
-                Services = { InventoryManagement.BindService(new InventoryManagementImpl(repo, rpcLogger)) },
+                Services = { InventoryManagement.BindService(inventoryManagement),
+                             ServerReflection.BindService(refImpl)},
                 Ports = { new ServerPort("localhost", port, ServerCredentials.Insecure) }
             };
             server.Start();
-            logger.LogInformation("Inventory RPC Service Listening on Port " + port);
+            logger.LogInformation("Inventory gRPC Service Listening on Port " + port);
 
             mre.WaitOne();
         }

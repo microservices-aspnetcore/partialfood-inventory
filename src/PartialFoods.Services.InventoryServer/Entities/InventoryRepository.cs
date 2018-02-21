@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PartialFoods.Services.InventoryServer.Entities
@@ -61,6 +62,15 @@ namespace PartialFoods.Services.InventoryServer.Entities
                 Console.WriteLine($"Failed to query product - {sku}");
             }
             return null;
+        }
+
+        public IList<ProductActivity> GetActivity(string sku)
+        {
+            var activities = (from activity in context.Activities
+                              where activity.SKU == sku
+                              orderby activity.CreatedOn ascending
+                              select activity).ToList();
+            return activities;
         }
 
         public ProductActivity PutActivity(ProductActivity activity)
