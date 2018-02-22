@@ -17,6 +17,7 @@ namespace PartialFoods.Services.InventoryServer.Entities
     {
         Reserved = 1,
         Released = 2,
-        Shipped = 3
+        Shipped = 3,
+        StockAdd = 4
     }
 }

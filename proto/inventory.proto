@@ -33,4 +33,5 @@ enum ActivityType {
     RESERVED = 1;
     RELEASED = 2;
     SHIPPED = 3;
+    STOCKADD = 4;
 }

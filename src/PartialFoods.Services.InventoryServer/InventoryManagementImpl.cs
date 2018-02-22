@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using PartialFoods.Services;
@@ -29,20 +30,28 @@ namespace PartialFoods.Services.InventoryServer
         {
             logger.LogInformation($"Received query for product activity for SKU {request.SKU}");
             var response = new ActivityResponse();
-            var activities = this.repository.GetActivity(request.SKU);
-            foreach (var activity in activities)
+            try
             {
-                response.Activities.Add(new PartialFoods.Services.Activity
+                var activities = this.repository.GetActivity(request.SKU);
+                foreach (var activity in activities)
                 {
-                    SKU = activity.SKU,
-                    ActivityID = activity.ActivityID,
-                    Timestamp = (ulong)activity.CreatedOn,
-                    OrderID = activity.OrderID,
-                    Quantity = (uint)activity.Quantity,
-                    ActivityType = ToProtoActivityType(activity.ActivityType)
-                });
+                    response.Activities.Add(new PartialFoods.Services.Activity
+                    {
+                        SKU = activity.SKU,
+                        ActivityID = activity.ActivityID,
+                        Timestamp = (ulong)activity.CreatedOn,
+                        OrderID = activity.OrderID,
+                        Quantity = (uint)activity.Quantity,
+                        ActivityType = ToProtoActivityType(activity.ActivityType)
+                    });
+                }
+                return Task.FromResult(response);
             }
-            return Task.FromResult(response);
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to retrieve activity for SKU : {}", request.SKU);
+                return (Task<ActivityResponse>)Task.FromException(ex);
+            }
         }
 
         private PartialFoods.Services.ActivityType ToProtoActivityType(
@@ -59,6 +68,10 @@ namespace PartialFoods.Services.InventoryServer
             else if (at == PartialFoods.Services.InventoryServer.Entities.ActivityType.Reserved)
             {
                 return PartialFoods.Services.ActivityType.Reserved;
+            }
+            else if (at == PartialFoods.Services.InventoryServer.Entities.ActivityType.StockAdd)
+            {
+                return PartialFoods.Services.ActivityType.Stockadd;
             }
             else
             {

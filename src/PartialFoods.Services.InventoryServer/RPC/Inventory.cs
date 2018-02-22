@@ -29,14 +29,14 @@ namespace PartialFoods.Services {
             "QWN0aXZpdHkinAEKCEFjdGl2aXR5EgsKA1NLVRgBIAEoCRIRCglUaW1lc3Rh",
             "bXAYAiABKAQSEAoIUXVhbnRpdHkYAyABKA0SOQoMQWN0aXZpdHlUeXBlGAQg",
             "ASgOMiMuUGFydGlhbEZvb2RzLlNlcnZpY2VzLkFjdGl2aXR5VHlwZRISCgpB",
-            "Y3Rpdml0eUlEGAUgASgJEg8KB09yZGVySUQYBiABKAkqRAoMQWN0aXZpdHlU",
+            "Y3Rpdml0eUlEGAUgASgJEg8KB09yZGVySUQYBiABKAkqUgoMQWN0aXZpdHlU",
             "eXBlEgsKB1VOS05PV04QABIMCghSRVNFUlZFRBABEgwKCFJFTEVBU0VEEAIS",
-            "CwoHU0hJUFBFRBADMuUBChNJbnZlbnRvcnlNYW5hZ2VtZW50EmwKFEdldEVm",
-            "ZmVjdGl2ZVF1YW50aXR5EiguUGFydGlhbEZvb2RzLlNlcnZpY2VzLkdldFBy",
-            "b2R1Y3RSZXF1ZXN0GiouUGFydGlhbEZvb2RzLlNlcnZpY2VzLkdldFF1YW50",
-            "aXR5UmVzcG9uc2USYAoLR2V0QWN0aXZpdHkSKC5QYXJ0aWFsRm9vZHMuU2Vy",
-            "dmljZXMuR2V0UHJvZHVjdFJlcXVlc3QaJy5QYXJ0aWFsRm9vZHMuU2Vydmlj",
-            "ZXMuQWN0aXZpdHlSZXNwb25zZWIGcHJvdG8z"));
+            "CwoHU0hJUFBFRBADEgwKCFNUT0NLQUREEAQy5QEKE0ludmVudG9yeU1hbmFn",
+            "ZW1lbnQSbAoUR2V0RWZmZWN0aXZlUXVhbnRpdHkSKC5QYXJ0aWFsRm9vZHMu",
+            "U2VydmljZXMuR2V0UHJvZHVjdFJlcXVlc3QaKi5QYXJ0aWFsRm9vZHMuU2Vy",
+            "dmljZXMuR2V0UXVhbnRpdHlSZXNwb25zZRJgCgtHZXRBY3Rpdml0eRIoLlBh",
+            "cnRpYWxGb29kcy5TZXJ2aWNlcy5HZXRQcm9kdWN0UmVxdWVzdBonLlBhcnRp",
+            "YWxGb29kcy5TZXJ2aWNlcy5BY3Rpdml0eVJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::PartialFoods.Services.ActivityType), }, new pbr::GeneratedClrTypeInfo[] {
@@ -55,6 +55,7 @@ namespace PartialFoods.Services {
     [pbr::OriginalName("RESERVED")] Reserved = 1,
     [pbr::OriginalName("RELEASED")] Released = 2,
     [pbr::OriginalName("SHIPPED")] Shipped = 3,
+    [pbr::OriginalName("STOCKADD")] Stockadd = 4,
   }
 
   #endregion
