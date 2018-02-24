@@ -15,30 +15,22 @@ namespace PartialFoods.Services.InventoryServer.Entities
 
         public int GetCurrentQuantity(string sku)
         {
+            var quantity = 0;
             try
             {
-                var product = context.Products.FirstOrDefault(p => p.SKU == sku);
-                if (product != null)
+                var productActivities = GetActivity(sku);
+                foreach (var activity in productActivities)
                 {
-                    var productActivities = (from activity in context.Activities
-                                             where activity.SKU == sku
-                                             orderby activity.CreatedOn
-                                             select activity).ToArray();
-
-                    // Reserve decreases quantity, Ship has no effect (already decreased), Released increases
-                    var quantity = product.OriginalQuantity;
-                    foreach (var activity in productActivities)
+                    if ((activity.ActivityType == ActivityType.Released) ||
+                        (activity.ActivityType == ActivityType.StockAdd))
                     {
-                        if (activity.ActivityType == ActivityType.Released)
-                        {
-                            quantity += activity.Quantity;
-                        }
-                        else if (activity.ActivityType == ActivityType.Reserved)
-                        {
-                            quantity -= activity.Quantity;
-                        }
+                        quantity += activity.Quantity;
                     }
-                    return quantity;
+                    else if (activity.ActivityType == ActivityType.Reserved)
+                    {
+                        quantity -= activity.Quantity;
+                    }
+                    // Shipped activity doesn't change quantity 
                 }
             }
             catch (Exception ex)
@@ -46,7 +38,7 @@ namespace PartialFoods.Services.InventoryServer.Entities
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine($"Failed to query current quantity: {ex.ToString()}");
             }
-            return 0;
+            return quantity;
         }
 
         public Product GetProduct(string sku)
